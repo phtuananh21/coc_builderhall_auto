@@ -274,13 +274,10 @@ Func ApplyConfig_600_1($TypeReadSave)
 	; <><><><> Log window <><><><>
 	Switch $TypeReadSave
 		Case "Read"
-			_GUICtrlComboBox_SetCurSel($g_hCmbLogDividerOption, $g_iCmbLogDividerOption)
-			cmbLog()
 			; <><><><> Bottom panel <><><><>
 			GUICtrlSetState($g_hChkBackgroundMode, $g_bChkBackgroundMode = True ? $GUI_CHECKED : $GUI_UNCHECKED)
 			UpdateChkBackground() ;Applies it to hidden button
 		Case "Save"
-			$g_iCmbLogDividerOption = _GUICtrlComboBox_GetCurSel($g_hCmbLogDividerOption)
 			; <><><><> Bottom panel <><><><>
 			$g_bChkBackgroundMode = (GUICtrlRead($g_hChkBackgroundMode) = $GUI_CHECKED)
 	EndSwitch
