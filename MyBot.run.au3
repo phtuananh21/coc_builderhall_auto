@@ -707,14 +707,18 @@ Func runBot() ;Bot that runs everything in order
 	; Step 1: Confirm Main Village screen (no building detection needed)
 	SetLog("Confirming Main Village screen...", $COLOR_INFO)
 	Local $iRetry = 0
+	Local $bMainScreenConfirmed = False
 	While $iRetry < 10
-		checkMainScreen(False)
-		If Not $g_bRestart Then ExitLoop
+		If checkMainScreen(False) Then
+			$bMainScreenConfirmed = True
+			$g_bRestart = False ; clear any leftover restart flags
+			ExitLoop
+		EndIf
 		$iRetry += 1
 		SetLog("Waiting for Main Screen... (" & $iRetry & "/10)", $COLOR_INFO)
 		If _Sleep(3000) Then Return
 	WEnd
-	If $g_bRestart Then
+	If Not $bMainScreenConfirmed Then
 		SetLog("Could not confirm Main Screen. Stopping bot.", $COLOR_ERROR)
 		btnStop()
 		Return
