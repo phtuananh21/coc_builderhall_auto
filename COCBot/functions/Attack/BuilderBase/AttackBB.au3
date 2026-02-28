@@ -502,7 +502,42 @@ Func DeployBBTroop($sName, $x, $y, $iAmount, $ai_AttackDropPoints)
 			If _Sleep($g_iBBSameTroopDelay - $b_MachineTimeOffset) Then Return ; slow down dropping of troops
 		EndIf
 	Next
+
+	; BB 2.0: Activate troop ability immediately after deploying (skips BM/Copter = handled by CheckBMLoop)
+	ActivateTroopAbility($sName, $x, $y)
+
 EndFunc   ;==>DeployBBTroop
+
+; ---------------------------------------------------------------
+; BB 2.0: Activate the active ability of a troop slot right after deploying.
+; Checks a pixel ~35px above the troop slot for a bright golden ability icon.
+; ---------------------------------------------------------------
+Func ActivateTroopAbility($sName, $x, $y)
+	; Only troops with active abilities in BB 2.0
+	Local $bHasAbility = StringInStr($sName, "CannonCart") Or StringInStr($sName, "DropShip") Or _
+						StringInStr($sName, "Witch") Or StringInStr($sName, "BoxerGiant") Or _
+						StringInStr($sName, "SuperPekka") Or StringInStr($sName, "ElectroWizard") Or _
+						StringInStr($sName, "BabyDrag") Or StringInStr($sName, "HogGlider")
+	If Not $bHasAbility Then Return
+
+	If Not $g_bRunState Then Return
+
+	; Re-select the troop slot, then wait for ability icon to appear
+	PureClick($x, $y)
+	If _Sleep(600) Then Return
+
+	; In BB 2.0, the ability button appears ~35px above the troop slot and glows gold/yellow
+	Local $iAbilityY = $y - 35
+	Local $sAbilityPx = _GetPixelColor($x, $iAbilityY, True)
+	If $g_bDebugSetLog Then SetLog("BB Ability pixel (" & $x & "," & $iAbilityY & ") = " & $sAbilityPx, $COLOR_DEBUG)
+
+	If _ColorCheck($sAbilityPx, Hex(0xFFD020, 6), 55, Default) Then
+		PureClick($x, $iAbilityY)
+		SetLog("Activate " & $sName & " Ability!", $COLOR_SUCCESS)
+	Else
+		SetLog("No ability icon for " & $sName & " (px=" & $sAbilityPx & ")", $COLOR_DEBUG)
+	EndIf
+EndFunc   ;==>ActivateTroopAbility
 
 Func GetMachinePos()
 	Local $aBMPos = QuickMIS("CNX", $g_sImgBBBattleMachine, 18, 540 + $g_iBottomOffsetY, 85, 665 + $g_iBottomOffsetY)
@@ -519,7 +554,11 @@ Func GetMachinePos()
 EndFunc   ;==>GetMachinePos
 
 Func CheckBMLoop($aBMPos = $g_aMachinePos)
-	Local $count = 0, $loopcount = 0
+	; Static vars persist between calls - track 3-charge wait timer
+	Static $tFirstReady = 0
+	Static $bWaiting = False
+
+	Local $loopcount = 0
 	Local $BMDeadX = 71, $BMDeadColor
 	Local $BMDeadY = 663 + $g_iBottomOffsetY
 	Local $MachineName = ""
@@ -539,10 +578,27 @@ Func CheckBMLoop($aBMPos = $g_aMachinePos)
 
 		If QuickMIS("BC1", $g_sImgDirMachineAbility, $aBMPos[0] - 35, $aBMPos[1] - 40, $aBMPos[0] + 35, $aBMPos[1] + 40) Then
 			If StringInStr($g_iQuickMISName, "Wait") Then
+				; Ability spent/recharging - reset 3-charge timer
+				$bWaiting = False
 				ExitLoop
 			ElseIf StringInStr($g_iQuickMISName, "Ability") Then
-				PureClickP($aBMPos)
-				SetLog("Activate " & $MachineName & " Ability", $COLOR_SUCCESS)
+				; Ability is charged and ready
+				If Not $bWaiting Then
+					; First time we see Ability ready = charge 1 accumulated
+					$bWaiting = True
+					$tFirstReady = TimerInit()
+					SetLog($MachineName & " Ability ready (charge 1), waiting for charge 3...", $COLOR_INFO)
+				EndIf
+				; Wait ~55 seconds after charge 1 becomes ready = approx 3 charges in BB 2.0
+				Local $iElapsed = Int(TimerDiff($tFirstReady) / 1000)
+				If $iElapsed >= 55 Then
+					PureClickP($aBMPos)
+					SetLog("Activate " & $MachineName & " Ability (3 charges!)", $COLOR_SUCCESS)
+					$bWaiting = False
+					$tFirstReady = 0
+				Else
+					SetLog("Waiting for " & $MachineName & " charge 3 (" & $iElapsed & "/55s)...", $COLOR_DEBUG2)
+				EndIf
 				ExitLoop
 			EndIf
 		EndIf
@@ -550,6 +606,7 @@ Func CheckBMLoop($aBMPos = $g_aMachinePos)
 		$BMDeadColor = _GetPixelColor($BMDeadX, $BMDeadY, True)
 		If _ColorCheck($BMDeadColor, Hex(0x4E4E4E, 6), 20, Default) Then
 			SetLog($MachineName & " is Dead", $COLOR_DEBUG2)
+			$bWaiting = False
 			Return False
 		EndIf
 
