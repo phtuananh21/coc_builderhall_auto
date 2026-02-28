@@ -366,6 +366,13 @@ Func AttackBB($aBBAttackBar = True)
 			$ai_DropPoints = _GetVectorOutZone($eVectorLeftBottom)
 	EndSwitch
 
+	; BB 2.0: Drop ALL troops at a single corner point (middle of the vector = corner tip)
+	Local $ai_SinglePoint[1]
+	$ai_SinglePoint[0] = $ai_DropPoints[Int(UBound($ai_DropPoints) / 2)]
+	$ai_DropPoints = $ai_SinglePoint
+	SetLog("Drop point: (" & $ai_DropPoints[0][0] & ", " & $ai_DropPoints[0][1] & ")", $COLOR_DEBUG)
+
+
 	If IsProblemAffect(True) Then Return
 
 	Local $bTroopsDropped = False
