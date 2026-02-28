@@ -1,5 +1,5 @@
 ﻿﻿<div align="center">
-  <img src="https://mybot.run/forums/uploads/monthly_2020_02/1077755866_headerlogo(2).png.7c1bc0fd3c7b74bd79ebd09af6db5d24.png" width="400" alt="MyBot Logo"/>
+  <img src="https://raw.githubusercontent.com/MyBotRun/MyBot/master/COCBot/IMG/MyBotRun.png" width="300" alt="MyBot Logo"/>
   <h1>BuilderHall Auto</h1>
   <p><strong>A dedicated Clash of Clans Builder Base automation bot, modified from <a href="https://github.com/MyBotRun/MyBot">MyBot.run</a>.</strong></p>
 
