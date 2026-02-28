@@ -1,7 +1,7 @@
 ﻿﻿<div align="center">
-  <img src="images/Logo.png" width="600" alt="BuilderHall Logo"/>
-  <h1>BuilderHall Auto</h1>
-  <p><strong>A dedicated Clash of Clans Builder Base automation bot, modified from <a href="https://github.com/MyBotRun/MyBot">MyBot.run</a>.</strong></p>
+  <img src="images/Logo.png" width="600" alt="NightVillage-Bot Logo"/>
+  <h1>NightVillage-Bot</h1>
+  <p><strong>A dedicated Clash of Clans Night Village (Builder Base) automation bot, modified from <a href="https://github.com/MyBotRun/MyBot">MyBot.run</a>.</strong></p>
 
   <p>
     <a href="https://github.com/MyBotRun/MyBot/releases"><img alt="Original Project" src="https://img.shields.io/badge/Forked%20from-MyBot.run-blue?style=flat-square&logo=github"></a>
@@ -12,9 +12,9 @@
 
 ---
 
-## ⚡ What is BuilderHall Auto?
+## ⚡ What is NightVillage-Bot?
 
-BuilderHall Auto is a completely streamlined and customized version of the famous **MyBot.run** project. While the original bot focuses primarily on the Main Village, this project has been heavily modified and optimized **exclusively for Builder Base 2.0 (Builder Hall) automation**.
+NightVillage-Bot is a completely streamlined and customized version of the famous **MyBot.run** project. While the original bot focuses primarily on the Main Village, this project has been heavily modified and optimized **exclusively for Builder Base 2.0 (Night Village) automation**.
 
 All unnecessary UI elements, Main Village detection code, and features have been stripped out to ensure maximum performance and focus on Builder Base farming.
 
