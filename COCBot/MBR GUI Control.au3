@@ -27,24 +27,8 @@ Global $g_hFrmBot_WNDPROC_ptr = 0
 #include "MBR GUI Control Variables.au3"
 #include "GUI\MBR GUI Control Bottom.au3"
 #include "GUI\MBR GUI Control Tab General.au3"
-#include "GUI\MBR GUI Control Child Army.au3"
-#include "GUI\MBR GUI Control Tab Village.au3"
-#include "GUI\MBR GUI Control Tab Search.au3"
-#include "GUI\MBR GUI Control Child Attack.au3"
-#include "GUI\MBR GUI Control Tab DropOrder.au3"
-#include "GUI\MBR GUI Control Tab EndBattle.au3"
-#include "GUI\MBR GUI Control Tab SmartZap.au3"
-#include "GUI\MBR GUI Control Tab Stats.au3"
-#include "GUI\MBR GUI Control Collectors.au3"
-#include "GUI\MBR GUI Control Attack Standard.au3"
-#include "GUI\MBR GUI Control Attack Scripted.au3"
-#include "GUI\MBR GUI Control Achievements.au3"
-#include "GUI\MBR GUI Control Notify.au3"
-#include "GUI\MBR GUI Control Child Upgrade.au3"
-#include "GUI\MBR GUI Control Donate.au3"
 #include "GUI\MBR GUI Control Bot Options.au3"
 #include "GUI\MBR GUI Control Preset.au3"
-#include "GUI\MBR GUI Control Child Misc.au3"
 #include "GUI\MBR GUI Control Android.au3"
 #include "MBR GUI Action.au3"
 
@@ -728,20 +712,6 @@ Func GUIControl_WM_NOTIFY($hWind, $iMsg, $wParam, $lParam)
 		Case $g_hTabMain
 			; Handle RichText controls
 			tabMain()
-		Case $g_hGUI_VILLAGE_TAB
-			tabVillage()
-		Case $g_hGUI_DONATE_TAB
-			tabDONATE()
-		Case $g_hGUI_ATTACK_TAB
-			tabAttack()
-		Case $g_hGUI_TRAINARMY_TAB
-			tabARMY()
-		Case $g_hGUI_SEARCH_TAB
-			tabSEARCH()
-		Case $g_hGUI_DEADBASE_TAB
-			tabDeadbase()
-		Case $g_hGUI_ACTIVEBASE_TAB
-			tabActivebase()
 		Case $g_hGUI_BOT_TAB
 			tabBot()
 		Case Else

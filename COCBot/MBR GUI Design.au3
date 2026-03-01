@@ -64,8 +64,6 @@ Global $g_oGuiNotInMini = ObjCreate("Scripting.Dictionary")
 
 #include "GUI\MBR GUI Design Bottom.au3"
 #include "GUI\MBR GUI Design Log.au3"
-#include "GUI\MBR GUI Design Village.au3"
-#include "GUI\MBR GUI Design Attack.au3"
 #include "GUI\MBR GUI Design Bot.au3"
 #include "GUI\MBR GUI Design About.au3"
 #include "GUI\MBR GUI Design BuilderBase.au3"
@@ -352,40 +350,7 @@ Func CreateMainGUIControls($bGuiModeUpdate = False)
 
 	; Static to avoid GDI Handle leak
 	Static $g_hTabMain_ImageList = 0
-	Static $g_hGUI_VILLAGE_TAB_ImageList = 0
-	Static $g_hGUI_MISC_TAB_ImageList = 0
-	Static $g_hGUI_DONATE_TAB_ImageList = 0
-	Static $g_hGUI_UPGRADE_TAB_ImageList = 0
-	Static $g_hGUI_NOTIFY_TAB_ImageList = 0
-	Static $g_hGUI_ATTACK_TAB_ImageList = 0
-	Static $g_hGUI_TRAINARMY_TAB_ImageList = 0
-	Static $g_hGUI_SEARCH_TAB_ImageList = 0
-	Static $g_hGUI_DEADBASE_TAB_ImageList = 0
-	Static $g_hGUI_ACTIVEBASE_TAB_ImageList = 0
-	Static $g_hGUI_ATTACKOPTION_TAB_ImageList = 0
-	Static $g_hGUI_STRATEGIES_TAB_ImageList = 0
-	Static $g_hGUI_BOT_TAB_ImageList = 0
-	Static $g_hGUI_STATS_TAB_ImageList = 0
-
-	Bind_ImageList($g_hTabMain, $g_hTabMain_ImageList)
-
-	Bind_ImageList($g_hGUI_VILLAGE_TAB, $g_hGUI_VILLAGE_TAB_ImageList)
-	Bind_ImageList($g_hGUI_MISC_TAB, $g_hGUI_MISC_TAB_ImageList)
-	Bind_ImageList($g_hGUI_DONATE_TAB, $g_hGUI_DONATE_TAB_ImageList)
-	Bind_ImageList($g_hGUI_UPGRADE_TAB, $g_hGUI_UPGRADE_TAB_ImageList)
-	Bind_ImageList($g_hGUI_NOTIFY_TAB, $g_hGUI_NOTIFY_TAB_ImageList)
-
-	Bind_ImageList($g_hGUI_ATTACK_TAB, $g_hGUI_ATTACK_TAB_ImageList)
-	Bind_ImageList($g_hGUI_TRAINARMY_TAB, $g_hGUI_TRAINARMY_TAB_ImageList)
-	Bind_ImageList($g_hGUI_SEARCH_TAB, $g_hGUI_SEARCH_TAB_ImageList)
-	Bind_ImageList($g_hGUI_DEADBASE_TAB, $g_hGUI_DEADBASE_TAB_ImageList)
-	Bind_ImageList($g_hGUI_ACTIVEBASE_TAB, $g_hGUI_ACTIVEBASE_TAB_ImageList)
-	Bind_ImageList($g_hGUI_ATTACKOPTION_TAB, $g_hGUI_ATTACKOPTION_TAB_ImageList)
-	Bind_ImageList($g_hGUI_STRATEGIES_TAB, $g_hGUI_STRATEGIES_TAB_ImageList)
-
-	Bind_ImageList($g_hGUI_BOT_TAB, $g_hGUI_BOT_TAB_ImageList)
-
-	Bind_ImageList($g_hGUI_STATS_TAB, $g_hGUI_STATS_TAB_ImageList)
+	; Bind_ImageList($g_hGUI_BOT_TAB, $g_hGUI_BOT_TAB_ImageList)
 
 	; Show Tab LOG
 	GUICtrlSetState($g_hTabLog, $GUI_SHOW)
